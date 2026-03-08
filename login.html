@@ -1,55 +1,62 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
-
-
-    <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#7c5cff">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
 <meta charset="UTF-8">
-<title>Lumis</title>
-
+<title>Lumis Login</title>
 <link rel="stylesheet" href="style.css">
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-
 </head>
 
-<body class="login-body">
+<body class="login-page">
 
-<div class="login-container">
+<div class="login-box">
 
-  <input type="email" placeholder="Email">
+<h1>Lumis</h1>
 
-  <input type="password" placeholder="Senha">
-
-  <button class="login-button">
-    Entrar
-  </button>
-
-</div>
-<p class="create-account">
-Criar conta
-</p>
-
-</div>
-
-<input id="email" placeholder="Email">
+<input id="email" type="email" placeholder="Email">
 <input id="senha" type="password" placeholder="Senha">
 
-<button onclick="login()" class="btn-primary">
-Entrar
-</button>
-
-<p class="create-account">
-Criar conta
-</p>
+<button onclick="login()">Entrar</button>
 
 </div>
 
-<script src="app.js"></script>
+<script src="config.js"></script>
+
+<script>
+
+async function login(){
+
+let email = document.getElementById("email").value
+let senha = document.getElementById("senha").value
+
+let res = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`,{
+method:"POST",
+headers:{
+"Content-Type":"application/json",
+"apikey":SUPABASE_KEY
+},
+body:JSON.stringify({
+email:email,
+password:senha
+})
+})
+
+let data = await res.json()
+
+if(data.access_token){
+
+localStorage.setItem("lumis_auth",data.access_token)
+
+window.location = "index.html"
+
+}else{
+
+alert("Login inválido")
+
+}
+
+}
+
+</script>
 
 </body>
 </html>
