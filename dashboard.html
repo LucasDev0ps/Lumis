@@ -1,60 +1,72 @@
 <!DOCTYPE html>
-<html lang="pt-br>
+<html lang="pt-br">
+
 <head>
 
 <meta charset="UTF-8">
+
 <title>Lumis Dashboard</title>
+
+<link rel="stylesheet" href="style.css">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
-<style>
-
-body{
-font-family:Arial;
-background:#0f0f0f;
-color:white;
-padding:20px;
-}
-
-input{
-padding:10px;
-margin:5px;
-border-radius:5px;
-border:none;
-}
-
-button{
-padding:10px;
-background:#00ff88;
-border:none;
-border-radius:5px;
-}
-
-.card{
-background:#1c1c1c;
-padding:15px;
-margin-top:10px;
-border-radius:8px;
-}
-
-</style>
-
 </head>
 
-<body>
+<body class="dashboard-body">
+
+<div class="container">
+
+<header>
 
 <h1>Lumis Dashboard</h1>
 
-<h3>Novo gasto</h3>
+<div class="profile-icon">
+👤
+</div>
+
+</header>
+
+
+<div class="card">
+
+<h3>Novo Gasto</h3>
 
 <input id="descricao" placeholder="Descrição">
-<input id="valor" placeholder="Valor">
 
-<button onclick="addGasto()">Salvar</button>
+<input id="valor" placeholder="Valor R$">
 
-<h3>Gastos</h3>
+<button onclick="addGasto()" class="btn-primary">
+Salvar gasto
+</button>
+
+</div>
+
+
+<h3 class="section-title">
+Seus Gastos
+</h3>
 
 <div id="lista"></div>
+
+</div>
+
+
+<div class="bottom-nav">
+
+<div class="nav-item active">
+Home
+</div>
+
+<div class="nav-item">
+Expenses
+</div>
+
+<div class="nav-item">
+Goals
+</div>
+
+</div>
 
 <script src="app.js"></script>
 
