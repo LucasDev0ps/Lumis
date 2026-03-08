@@ -1,103 +1,87 @@
-function showScreen(screen){
+const supabase = window.supabase.createClient(
+"https://gdwzmhnquasobzqmgxmz.supabase.co",
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdkd3ptaG5xdWFzb2J6cW1neG16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5NDc4MTUsImV4cCI6MjA4ODUyMzgxNX0.tOuumoZzzdCVUnRZXmQw9-ctHjVSAN7a301CWs_d39Q"
+)
 
-document.querySelectorAll(".screen").forEach(s=>{
 
-s.style.display="none"
+// LOGIN
+async function login(){
 
+const email = document.getElementById("email").value
+const senha = document.getElementById("senha").value
+
+const { data, error } = await supabase.auth.signInWithPassword({
+email: email,
+password: senha
 })
 
-document.getElementById(screen).style.display="block"
-
-}
-
-showScreen("dashboard")
-
-function detectCategory(desc){
-
-desc = desc.toLowerCase()
-
-if(desc.includes("uber")) return "Transporte"
-if(desc.includes("ifood")) return "Alimentação"
-if(desc.includes("mercado")) return "Alimentação"
-if(desc.includes("netflix")) return "Assinatura"
-if(desc.includes("amazon")) return "Compras"
-
-return "Outros"
-
-}
-
-async function addTransaction(){
-
-let desc = document.getElementById("desc").value
-let valor = document.getElementById("valor").value
-
-if(!desc || !valor){
-
-alert("Preencha descrição e valor")
+if(error){
+alert("Erro no login")
 return
+}
+
+window.location = "dashboard.html"
 
 }
 
-let categoria = detectCategory(desc)
 
-await fetch(`${SUPABASE_URL}/rest/v1/transactions`,{
 
-method:"POST",
+// ADICIONAR GASTO
+async function addGasto(){
 
-headers:{
-"apikey":SUPABASE_KEY,
-"Authorization":`Bearer ${SUPABASE_KEY}`,
-"Content-Type":"application/json",
-"Prefer":"return=minimal"
-},
+const descricao = document.getElementById("descricao").value
+const valor = document.getElementById("valor").value
 
-body:JSON.stringify({
+const { error } = await supabase
+.from("gastos")
+.insert([
+{
+descricao: descricao,
+valor: valor
+}
+])
 
-description:desc,
-amount:parseFloat(valor),
-category:categoria
+if(error){
+alert("Erro ao salvar")
+return
+}
 
-})
+document.getElementById("descricao").value = ""
+document.getElementById("valor").value = ""
 
-})
-
-document.getElementById("desc").value=""
-document.getElementById("valor").value=""
-
-loadTransactions()
-loadDashboard()
+carregar()
 
 }
 
-async function loadTransactions(){
 
-let res = await fetch(`${SUPABASE_URL}/rest/v1/transactions?select=*`,{
 
-headers:{
-"apikey":SUPABASE_KEY,
-"Authorization":`Bearer ${SUPABASE_KEY}`
-}
+// LISTAR GASTOS
+async function carregar(){
 
-})
+const lista = document.getElementById("lista")
 
-let data = await res.json()
+if(!lista) return
 
-let lista = document.getElementById("lista")
+const { data, error } = await supabase
+.from("gastos")
+.select("*")
+.order("id", { ascending:false })
 
-lista.innerHTML=""
+lista.innerHTML = ""
 
-data.reverse().forEach(t=>{
+data.forEach(g => {
 
-lista.innerHTML+=`
-<li>
-<strong>${t.description}</strong><br>
-R$ ${t.amount}<br>
-<small>${t.category}</small>
-</li>
+lista.innerHTML += `
+<div class="card">
+${g.descricao} - R$ ${g.valor}
+</div>
 `
 
 })
 
 }
 
-loadTransactions()
+
+
+// EXECUTA AUTOMÁTICO
+carregar()
