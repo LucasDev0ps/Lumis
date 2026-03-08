@@ -12,7 +12,6 @@ headers:{
 let data = await res.json()
 
 let total = 0
-
 let categorias = {}
 
 data.forEach(t=>{
@@ -51,9 +50,7 @@ function drawChart(labels,valores){
 let ctx = document.getElementById("grafico")
 
 if(window.chart){
-
 window.chart.destroy()
-
 }
 
 window.chart = new Chart(ctx,{
@@ -61,15 +58,10 @@ window.chart = new Chart(ctx,{
 type:"pie",
 
 data:{
-
 labels:labels,
-
 datasets:[{
-
 data:valores
-
 }]
-
 }
 
 })
