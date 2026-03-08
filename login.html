@@ -1,60 +1,34 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+
 <meta charset="UTF-8">
-<title>Lumis Login</title>
+<title>Lumis</title>
+
+<link rel="stylesheet" href="style.css">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
-<style>
-body{
-font-family: Arial;
-background:#0f0f0f;
-color:white;
-display:flex;
-align-items:center;
-justify-content:center;
-height:100vh;
-}
-
-.box{
-background:#1c1c1c;
-padding:30px;
-border-radius:10px;
-width:300px;
-}
-
-input{
-width:100%;
-padding:10px;
-margin-top:10px;
-border:none;
-border-radius:5px;
-}
-
-button{
-width:100%;
-padding:10px;
-margin-top:15px;
-background:#00ff88;
-border:none;
-border-radius:5px;
-font-weight:bold;
-}
-</style>
-
 </head>
 
-<body>
+<body class="login-body">
 
-<div class="box">
+<div class="login-container">
 
-<h2>Lumis</h2>
+<div class="logo">
+<h1>Lumis</h1>
+</div>
 
 <input id="email" placeholder="Email">
 <input id="senha" type="password" placeholder="Senha">
 
-<button onclick="login()">Entrar</button>
+<button onclick="login()" class="btn-primary">
+Entrar
+</button>
+
+<p class="create-account">
+Criar conta
+</p>
 
 </div>
 
