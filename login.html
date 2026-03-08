@@ -1,29 +1,64 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="pt-br">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
 <title>Lumis Login</title>
 
-<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<style>
+body{
+font-family: Arial;
+background:#0f0f0f;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+height:100vh;
+}
+
+.box{
+background:#1c1c1c;
+padding:30px;
+border-radius:10px;
+width:300px;
+}
+
+input{
+width:100%;
+padding:10px;
+margin-top:10px;
+border:none;
+border-radius:5px;
+}
+
+button{
+width:100%;
+padding:10px;
+margin-top:15px;
+background:#00ff88;
+border:none;
+border-radius:5px;
+font-weight:bold;
+}
+</style>
 
 </head>
 
 <body>
 
-<div class="login">
+<div class="box">
 
-<h1>Lumis</h1>
+<h2>Lumis</h2>
 
-<button onclick="login()">Entrar com Face ID</button>
+<input id="email" placeholder="Email">
+<input id="senha" type="password" placeholder="Senha">
+
+<button onclick="login()">Entrar</button>
 
 </div>
 
-<script src="auth.js"></script>
+<script src="app.js"></script>
 
 </body>
-
 </html>
