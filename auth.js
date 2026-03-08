@@ -1,38 +1,34 @@
 async function login(){
 
-if(!window.PublicKeyCredential){
+let email = document.getElementById("email").value
+let senha = document.getElementById("senha").value
 
-alert("Biometria não suportada")
-
-return
-
-}
-
-try{
-
-await navigator.credentials.get({
-
-publicKey:{
-
-challenge:new Uint8Array([1,2,3,4]),
-
-timeout:60000,
-
-userVerification:"required"
-
-}
-
+let res = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`,{
+method:"POST",
+headers:{
+"Content-Type":"application/json",
+"apikey":SUPABASE_KEY,
+"Authorization":`Bearer ${SUPABASE_KEY}`
+},
+body:JSON.stringify({
+email:email,
+password:senha
+})
 })
 
-localStorage.setItem("lumis_auth","true")
+let data = await res.json()
 
-window.location="index.html"
+console.log(data)
 
-}
+if(data.access_token){
 
-catch(e){
+localStorage.setItem("lumis_auth",data.access_token)
 
-alert("Falha no Face ID")
+window.location = "index.html"
+
+}else{
+
+alert("Erro: "+data.error_description)
 
 }
 
