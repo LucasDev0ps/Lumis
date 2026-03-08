@@ -66,3 +66,17 @@ R$ ${t.amount}
 }
 
 loadTransactions()
+
+function showScreen(screen){
+
+document.querySelectorAll(".screen").forEach(s=>{
+
+s.style.display="none"
+
+})
+
+document.getElementById(screen).style.display="block"
+
+}
+
+showScreen("dashboard")
