@@ -1,93 +1,50 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> 
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
 <title>Lumis</title>
 
 <link rel="stylesheet" href="style.css">
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body>
-    
+
+<div class="container">
+
+<h1>Lumis Finance</h1>
+
+<div class="cards">
+
+<div class="card">
+<h3>Total gasto</h3>
+<p id="total">R$0</p>
+</div>
+
+<div class="card">
+<h3>Saldo</h3>
+<p id="saldo">R$0</p>
+</div>
+
+</div>
+
+<canvas id="grafico"></canvas>
+
+</div>
+
+<script src="config.js"></script>
+<script src="dashboard.js"></script>
+
 <script>
 
-if(localStorage.getItem("lumis_auth") !== "true"){
-
-window.location="login.html"
-
+if(!localStorage.getItem("lumis_auth")){
+window.location = "login.html"
 }
 
 </script>
-
-
-
-<header>
-
-<h1>Lumis</h1>
-
-</header>
-
-<nav>
-
-<button onclick="showScreen('dashboard')">Painel</button>
-<button onclick="showScreen('add')">Adicionar</button>
-<button onclick="showScreen('transactions')">Gastos</button>
-
-</nav>
-
-<section id="dashboard" class="screen">
-
-<h2>Painel Financeiro</h2>
-
-<div class="card">
-Saldo do mês
-<h3 id="saldo">R$ 0</h3>
-</div>
-
-<div class="card">
-Total gasto
-<h3 id="total">R$ 0</h3>
-</div>
-
-<div class="card">
-<h3>Gastos</h3>
-<canvas id="grafico"></canvas>
-</div>
-
-</section>
-
-<section id="add" class="screen">
-
-<h2>Novo gasto</h2>
-
-<input id="desc" placeholder="Descrição">
-
-<input id="valor" placeholder="Valor">
-
-<button onclick="addTransaction()">Salvar</button>
-
-</section>
-
-<section id="transactions" class="screen">
-
-<h2>Gastos</h2>
-
-<ul id="lista"></ul>
-
-</section>
-
-<script src="config.js"></script>
-<script src="app.js"></script>
-<script src="dashboard.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 
 </body>
 </html>
